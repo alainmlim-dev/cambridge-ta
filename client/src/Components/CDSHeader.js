@@ -4,7 +4,6 @@ import {
   SkipToContent,
   HeaderName,
   HeaderGlobalBar,
-  HeaderGlobalAction
 } from '@carbon/react';
 // import { Notification } from '@carbon/icons-react';
 
