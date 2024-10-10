@@ -1,15 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
 
     return (
         <footer>
 
-            <div>
-                <p>www.cambridge.org</p>
-                <p>Technical Assessment for Senior Frontend Developer</p>
-                <p>Prepared by Alain Lim (me@alainmlim.com)</p>
-            </div>
+            <p><Link to="https://www.cambridge.org" target='_blank'><strong>www.cambridge.org</strong></Link></p>
+            <p>Technical Assessment for Senior Frontend Developer</p>
+            <p>Prepared by Alain Lim (me@alainmlim.com)</p>
 
         </footer>
     )

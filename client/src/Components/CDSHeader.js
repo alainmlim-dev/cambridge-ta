@@ -1,28 +1,28 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Header,
   SkipToContent,
   HeaderName,
   HeaderGlobalBar,
 } from '@carbon/react';
-// import { Notification } from '@carbon/icons-react';
+import { AuthContext } from "../App";
 
 
 const CDSHeader = () => {
+
+  const { isLoggedIn } = useContext(AuthContext)
 
   return (
     <>
       <Header aria-label="Cambridge | Technical Assessment">
         <SkipToContent />
-        <HeaderName href="#" prefix="Cambridge | ">Technical Assessment</HeaderName>
+        <HeaderName href="https://www.cambridge.org" prefix="Cambridge | ">Technical Assessment</HeaderName>
 
         <HeaderGlobalBar>
-          
           <div className='header-username'>
-            <p>username</p>
+            {!isLoggedIn ? <></> : <p>username</p>}
           </div>
         </HeaderGlobalBar>
-
 
       </Header>
     </>
