@@ -6,7 +6,6 @@ import {
   HeaderGlobalBar,
 } from '@carbon/react';
 import { AuthContext } from "../App";
-import { Logout } from "@carbon/icons-react"
 
 
 const CDSHeader = () => {

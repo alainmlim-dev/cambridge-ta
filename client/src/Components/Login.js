@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { AuthContext } from "../App";
 import {
     Button,
@@ -17,6 +17,7 @@ const Login = () => {
     const usernameRef = useRef("")
     const passwordRef = useRef("")
     const [isLoggingIn, setIsLoggingIn] = useState(false)
+    const [invalidLoginDisp, setInvalidLoginDisp] = useState("none")
 
 
     const handleChangeUsername = (e) => {
@@ -51,6 +52,9 @@ const Login = () => {
                     navigate(-1)
                 } else {
                     // Notif -> Unsuccessful login
+                    usernameRef.current = "";
+                    passwordRef.current = "";
+                    setInvalidLoginDisp("block")
                 }
 
             })
@@ -100,6 +104,11 @@ const Login = () => {
                             :
                             <Button onClick={(e) => handleLogin(e)}>Login</Button>
                         }
+
+                        <p 
+                            className='login-invalid'
+                            style={{display: invalidLoginDisp}}
+                        >Invalid username or password. Please try again.</p>
 
 
                     </Stack>
