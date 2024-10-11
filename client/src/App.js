@@ -11,16 +11,21 @@ export const AuthContext = createContext();
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState("")
 
-  const login = () => setIsLoggedIn(true);
+  const login = () => {
+    setIsLoggedIn(true)
+    window.history.back(1)
+  };
   const logout = () => {
     setIsLoggedIn(false)
     window.location.href = "/"
   };
+  const setUser = (u) => setUsername(u)
 
   return (
     <>
-      <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      <AuthContext.Provider value={{ isLoggedIn, login, logout, username, setUser }}>
         <BrowserRouter>
           <CDSHeader />
           <Routes>

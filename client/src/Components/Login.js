@@ -1,18 +1,22 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from "../App";
 import {
     Button,
+    ButtonSkeleton,
     Form,
     Stack,
     TextInput
 } from '@carbon/react';
 import axios from 'axios'
+import { useNavigate } from 'react-router';
 
 const Login = () => {
 
-    const { login } = useContext(AuthContext)
-    const usernameRef = useRef()
-    const passwordRef = useRef()
+    let navigate = useNavigate()
+    const { login, setUser } = useContext(AuthContext)
+    const usernameRef = useRef("")
+    const passwordRef = useRef("")
+    const [isLoggingIn, setIsLoggingIn] = useState(false)
 
 
     const handleChangeUsername = (e) => {
@@ -26,7 +30,7 @@ const Login = () => {
     const handleLogin = (e) => {
 
         e.preventDefault()
-        console.log(usernameRef.current, passwordRef.current)
+        setIsLoggingIn(true)
 
         axios.get(process.env.REACT_APP_API_AUTH, {
             headers: {
@@ -38,12 +42,22 @@ const Login = () => {
         })
             .then(function (response) {
                 // handle success
-                console.log(response);
+                setIsLoggingIn(false)
+                console.log(response.data.login)
+
+                if (response.data.login) {
+                    login()
+                    setUser(usernameRef.current)
+                    navigate(-1)
+                } else {
+                    // Notif -> Unsuccessful login
+                }
 
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                setIsLoggingIn(false)
             })
             .finally(function () {
                 // always executed
@@ -81,7 +95,12 @@ const Login = () => {
                             onChange={(e) => { handleChangePassword(e) }}
                         />
 
-                        <Button onClick={(e) => handleLogin(e)}>Login</Button>
+                        {isLoggingIn ?
+                            <ButtonSkeleton></ButtonSkeleton>
+                            :
+                            <Button onClick={(e) => handleLogin(e)}>Login</Button>
+                        }
+
 
                     </Stack>
                 </Form>

@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { jwtDecode } from "jwt-decode";
 import bodyParser from 'body-parser';
-import axios from 'axios';
+
 
 const connectionString = process.env.ATLAS_URI || "";
 const client = new MongoClient(connectionString);
@@ -296,7 +296,7 @@ app.put('/code/update', async (req, res) => {
 })
 
 // ----
-app.get('/cambridge/users', (req, res) => {
+app.get('/cambridge/users', async (req, res) => {
 
     try {
 
@@ -305,27 +305,72 @@ app.get('/cambridge/users', (req, res) => {
 
         console.log(username, password)
 
-        axios.get('https://jsonplaceholder.typicode.com/users')
-            .then(function (response) {
-                // handle success
-                // console.log(response);
-                // const data = response.json
+        const fetchResult = await fetch('https://jsonplaceholder.typicode.com/users', {
+            method: 'get'
+        });
+        if (!fetchResult.ok) {
+            console.log(fetchResult);
+        } else {
+            const jsonData = await fetchResult.json()
+            // console.log(jsonData)
 
-                // if (response[username] == password) {
-                //     res.send("Login successful.").status(200)
-                // }
+            let user = jsonData.find(u => u.username === username);
+            console.log(user)
 
-                res.send("Login successful.").status(200)
+            if (user !== undefined) {
+                if (user.email === password) {
+                    console.log('Password correct!')
+                    res.send({"login": true}).status(200)
+                } else {
+                    console.log('Password incorrect!')
+                    res.send({"login": false}).status(200)
+                }
+            } else {
+                res.send({"login": false}).status(200)
+            }
+
+            
+
+            
+        }
+
+    //    axios.get('https://jsonplaceholder.typicode.com/users')
+    //         .then(async function (response) {
+    //             // handle success
+    //             // console.log(response);
+
+    //             // let user = response.map(u => u.username === "Bret")
+    //             // console.log(user)
+
+    //             const fetchResult = await fetch(process.env.REACT_APP_API_NOTEDATA, {
+    //                 method: 'get',
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     "noteid": noteId
+    //                 }
+    //             });
+    //             if (!fetchResult.ok) {
+    //                 console.log(fetchResult);
+    //             } else {
+    //                 const jsonData = await fetchResult.json()
+    //                 setNoteData(jsonData)
+    //                 setIsLoadingNotes(false)
+    //             }
+
+    //             res.send("test").status(200)
+                
 
                 
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function () {
-                // always executed
-            });
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //         })
+    //         .finally(function () {
+    //             // always executed
+    //         });
+
+
 
         
 

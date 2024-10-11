@@ -6,11 +6,12 @@ import {
   HeaderGlobalBar,
 } from '@carbon/react';
 import { AuthContext } from "../App";
+import { Logout } from "@carbon/icons-react"
 
 
 const CDSHeader = () => {
 
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn, username, logout } = useContext(AuthContext)
 
   return (
     <>
@@ -20,7 +21,7 @@ const CDSHeader = () => {
 
         <HeaderGlobalBar>
           <div className='header-username'>
-            {!isLoggedIn ? <></> : <p>username</p>}
+            {!isLoggedIn ? <></> : <p>Hi, <strong>{username}</strong>! | <span style={{cursor: "pointer"}} onClick={() => logout()}>Logout</span></p>}
           </div>
         </HeaderGlobalBar>
 
