@@ -16,7 +16,6 @@ function App() {
   const logout = () => {
     setIsLoggedIn(false)
     window.location.href = "/"
-    localStorage.setItem("token", "")
   };
 
   return (

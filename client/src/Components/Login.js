@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { AuthContext } from "../App";
 import {
     Button,
@@ -28,6 +28,12 @@ const Login = () => {
         console.log(usernameRef.current, passwordRef.current)
 
     }
+
+    useEffect(() => {
+
+        //Axios fetch ---
+
+    }, [])
 
 
     return (
