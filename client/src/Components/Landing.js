@@ -6,17 +6,18 @@ import { useNavigate } from 'react-router';
 const Landing = () => {
 
     const navigate = useNavigate()
-    const { isLoggedIn } = useContext(AuthContext)
+    const { isLoggedIn, login } = useContext(AuthContext)
+
 
     useEffect(() => {
 
-        console.log('Landing useEffect')
-
-        if (!isLoggedIn) {
+        if(!isLoggedIn) {
             navigate('/login')
         }
+        
 
     }, []) //eslint-disable-line
+
 
     return (
         <div className='main'>

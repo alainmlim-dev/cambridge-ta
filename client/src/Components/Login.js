@@ -49,7 +49,6 @@ const Login = () => {
                 if (response.data.login) {
                     login()
                     setUser(usernameRef.current)
-                    navigate(-1)
                 } else {
                     // Notif -> Unsuccessful login
                     usernameRef.current = "";

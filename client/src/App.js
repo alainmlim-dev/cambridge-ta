@@ -15,13 +15,18 @@ function App() {
 
   const login = () => {
     setIsLoggedIn(true)
+    localStorage.setItem("isLoggedIn", true)
     window.history.back(1)
   };
+
   const logout = () => {
     setIsLoggedIn(false)
+    localStorage.removeItem("isLoggedIn")
     window.location.href = "/"
   };
+
   const setUser = (u) => setUsername(u)
+  
 
   return (
     <>
