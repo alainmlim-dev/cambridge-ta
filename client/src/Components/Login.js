@@ -6,6 +6,7 @@ import {
     Stack,
     TextInput
 } from '@carbon/react';
+import axios from 'axios'
 
 const Login = () => {
 
@@ -27,13 +28,28 @@ const Login = () => {
         e.preventDefault()
         console.log(usernameRef.current, passwordRef.current)
 
+        axios.get(process.env.REACT_APP_API_AUTH, {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=UTF-8",
+                "username": usernameRef.current,
+                "password": passwordRef.current
+            },
+        })
+            .then(function (response) {
+                // handle success
+                console.log(response);
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+
     }
-
-    useEffect(() => {
-
-        //Axios fetch ---
-
-    }, [])
 
 
     return (
@@ -54,7 +70,7 @@ const Login = () => {
                             type="text"
                             labelText="Username"
                             ref={usernameRef}
-                            onChange={(e) => {handleChangeUsername(e)}}
+                            onChange={(e) => { handleChangeUsername(e) }}
                         />
 
                         <TextInput
@@ -62,7 +78,7 @@ const Login = () => {
                             type="text"
                             labelText="Password (Email)"
                             ref={passwordRef}
-                            onChange={(e) => {handleChangePassword(e)}}
+                            onChange={(e) => { handleChangePassword(e) }}
                         />
 
                         <Button onClick={(e) => handleLogin(e)}>Login</Button>

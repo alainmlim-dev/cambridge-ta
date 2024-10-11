@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { jwtDecode } from "jwt-decode";
 import bodyParser from 'body-parser';
+import axios from 'axios';
 
 const connectionString = process.env.ATLAS_URI || "";
 const client = new MongoClient(connectionString);
@@ -287,6 +288,46 @@ app.put('/code/update', async (req, res) => {
             }
         )
         res.send(results).status(200);
+
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+// ----
+app.get('/cambridge/users', (req, res) => {
+
+    try {
+
+        var username = req.headers.username;
+        var password = req.headers.password;
+
+        console.log(username, password)
+
+        axios.get('https://jsonplaceholder.typicode.com/users')
+            .then(function (response) {
+                // handle success
+                // console.log(response);
+                // const data = response.json
+
+                // if (response[username] == password) {
+                //     res.send("Login successful.").status(200)
+                // }
+
+                res.send("Login successful.").status(200)
+
+                
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+
+        
 
     } catch (error) {
         console.log(error)
