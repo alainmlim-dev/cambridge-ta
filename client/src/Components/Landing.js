@@ -11,12 +11,22 @@ const Landing = () => {
 
     useEffect(() => {
 
-        if(!isLoggedIn) {
+        if(
+            (!isLoggedIn) && 
+            (localStorage.getItem("isLoggedIn") === null)
+        ) {
             navigate('/login')
+        } else {
+            login()
         }
         
 
-    }, []) //eslint-disable-line
+    }, [isLoggedIn, login, navigate]) 
+
+    useEffect(() => {
+        console.log(isLoggedIn)
+        console.log(localStorage.getItem("isLoggedIn"))
+    })
 
 
     return (

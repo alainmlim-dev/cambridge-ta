@@ -16,7 +16,6 @@ function App() {
   const login = () => {
     setIsLoggedIn(true)
     localStorage.setItem("isLoggedIn", true)
-    window.history.back(1)
   };
 
   const logout = () => {
