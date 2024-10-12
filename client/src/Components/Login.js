@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from "../App";
 import {
     Button,
@@ -44,7 +44,6 @@ const Login = () => {
             .then(function (response) {
                 // handle success
                 setIsLoggingIn(false)
-                console.log(response.data.login)
 
                 if (response.data.login) {
                     login()
@@ -70,6 +69,13 @@ const Login = () => {
     }
 
 
+    // TBD ---
+    useEffect(() => {
+        usernameRef.current = "Bret";
+        passwordRef.current = "Sincere@april.biz"
+    }, [])
+
+
     return (
         <div className='main'>
             <div className='content'>
@@ -77,6 +83,7 @@ const Login = () => {
                 <h1>Cambridge</h1>
                 <p>Technical Assessment React Application</p>
                 <p>By Alain Lim</p>
+                <p>Bret / Sincere@april.biz (TBD)</p>
 
 
                 <Form aria-label="login form" className='login-form'>
