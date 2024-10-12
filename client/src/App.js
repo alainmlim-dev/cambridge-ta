@@ -35,6 +35,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/articles/*" element={<Login />}></Route>
+            <Route path="/articles/add" element={<Login />}></Route>
+            <Route path="/articles/edit" element={<Login />}></Route>
           </Routes>
           <Footer />
         </BrowserRouter>

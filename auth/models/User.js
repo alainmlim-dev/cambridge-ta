@@ -5,9 +5,10 @@ require("dotenv").config();
 // Connect to MongoDB
 mongoose.connect(process.env.DB_URL)
 
-const userSchema = new mongoose.Schema({
-    username: { type: String, required: true },
-    password: { type: String, required: true }
-}, { collection: 'users' });
+const articleSchema = new mongoose.Schema({
+    userId: { type: String, required: true },
+    title: { type: String, required: true },
+    body: { type: String, required: true }
+}, { collection: 'articles' });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User', articleSchema);
