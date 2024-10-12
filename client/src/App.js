@@ -5,7 +5,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Landing from './Components/Landing';
 import Login from './Components/Login';
 import Footer from './Components/Footer';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import ViewArticle from './Components/ViewArticle';
 
 export const AuthContext = createContext();
 const queryClient = new QueryClient();
@@ -38,7 +39,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Landing />}></Route>
               <Route path="/login" element={<Login />}></Route>
-              <Route path="/articles/*" element={<Login />}></Route>
+              <Route path="/articles/*" element={<ViewArticle />}></Route>
               <Route path="/articles/add" element={<Login />}></Route>
               <Route path="/articles/edit" element={<Login />}></Route>
             </Routes>
