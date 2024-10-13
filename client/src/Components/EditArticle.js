@@ -14,6 +14,7 @@ const EditArticle = () => {
     const titleRef = useRef("")
     const bodyRef = useRef("")
     const [isPosting, setIsPosting] = useState(false)
+    const [articleData, setArticleData] = useState({ title: "", body: "" })
 
 
     const handleChangeTitle = (e) => {
@@ -58,9 +59,32 @@ const EditArticle = () => {
 
         if (!isLoggedIn) {
             navigate('/login')
+        } else {
+
+            axios.get(process.env.REACT_APP_API_GETARTICLE, {
+                headers: {
+                    "id": location.state.id
+                }
+            })
+                .then(function (response) {
+
+                    setArticleData({
+                        title: response.data.title,
+                        body: response.data.body
+                    })
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+
         }
 
     }, [isLoggedIn, navigate])
+
+    useEffect(() => {
+        console.log(location)
+    }, [location])
 
 
 
@@ -71,8 +95,7 @@ const EditArticle = () => {
 
                 <Breadcrumb>
                     <BreadcrumbItem onClick={() => navigate('/')}>Articles</BreadcrumbItem>
-                    <BreadcrumbItem onClick={() => navigate('/articles/')}>id</BreadcrumbItem>
-                    <BreadcrumbItem href="#"><span>Edit article</span></BreadcrumbItem>
+                    <BreadcrumbItem href="#"><span>Edit</span></BreadcrumbItem>
                 </Breadcrumb>
 
                 <h1>Edit article</h1>

@@ -60,7 +60,7 @@ const ViewArticle = () => {
                 <Button 
                     className='edit-btn' 
                     renderIcon={Edit}
-                    onClick={() => {navigate('/articles/edit/' + location.state.id, location.state.id)}}
+                    onClick={() => {navigate('/articles/edit/' + location.state.id, {state:{id: location.state.id}})}}
                 >
                     Edit
                 </Button>
