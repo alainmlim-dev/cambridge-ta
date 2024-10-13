@@ -84,8 +84,6 @@ const Login = () => {
                 <h1>Cambridge</h1>
                 <p>Technical Assessment React Application</p>
                 <p>By Alain Lim</p>
-                <p>Bret / Sincere@april.biz (TBD)</p>
-
 
                 <Form aria-label="login form" className='login-form'>
                     <h3>Login</h3>

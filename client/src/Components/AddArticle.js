@@ -28,7 +28,6 @@ const AddArticle = () => {
 
         e.preventDefault()
         setIsPosting(true)
-        console.log(titleRef.current, bodyRef.current, username)
 
         var data = {
             "title": titleRef.current,

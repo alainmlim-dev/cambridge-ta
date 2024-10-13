@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from "../App";
 import { useNavigate } from 'react-router';
 import { useQuery } from "react-query";
-import { Search, Dropdown, Button } from '@carbon/react';
-import {Add} from '@carbon/icons-react';
+import { Search, Dropdown, Loading } from '@carbon/react';
 
 
 const fetchArticles = async () => {
@@ -25,7 +24,7 @@ const Landing = () => {
         const arr = []
         for (let i = 0; i < articleCount; i++) {
             arr.push(
-                <div key={i} onClick={() => {navigate('/articles/' + data[i].id, {state:{id: data[i].id}})}}>
+                <div key={i} onClick={() => { navigate('/articles/' + data[i].id, { state: { id: data[i].id } }) }}>
                     <h3>{data[i].title}</h3>
                     <p>{data[i].body}</p>
                 </div>
@@ -55,7 +54,7 @@ const Landing = () => {
         if (data !== undefined) {
             setArticleCount(data.length)
         }
-        
+
     }, [data])
 
 
@@ -83,16 +82,15 @@ const Landing = () => {
                         items={items}
                         itemToString={item => item ? item : ''}
                     />
-                    
+
                 </div>
 
                 <hr />
 
                 <div className='articles'>
 
-                    {/* {status === "error" && <p>Error fetching data</p>}
-                    {status === "loading" && <p>Fetching data...</p>} */}
-                    
+                    {status === "error" && <p>Error fetching data</p>}
+                    {status === "loading" && <Loading />}
                     {status === "success" && getArticles(articleCount)}
 
 

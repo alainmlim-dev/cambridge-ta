@@ -68,8 +68,12 @@ app.get('/articles', async (req, res) => {
     try {
 
         let collection = await db.collection("articles");
-        let results = await collection.find({}).limit(100).toArray()
-        res.send(results).status(200);
+        let results = await collection.find({}).sort({ id: -1}).limit(100).toArray()
+
+        setTimeout(() => {
+            res.send(results).status(200);
+        }, 800)
+        
 
     } catch (error) {
         console.log(error)
@@ -113,7 +117,7 @@ app.post('/post/article', async (req, res) => {
 
         setTimeout(() => {
             res.send(results).status(200);
-        }, 1500)
+        }, 1000)
         
 
     } catch (error) {
