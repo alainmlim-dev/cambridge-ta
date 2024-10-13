@@ -8,6 +8,7 @@ import Footer from './Components/Footer';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import ViewArticle from './Components/ViewArticle';
 import AddArticle from './Components/AddArticle';
+import EditArticle from './Components/EditArticle';
 
 export const AuthContext = createContext();
 const queryClient = new QueryClient();
@@ -44,7 +45,7 @@ function App() {
               <Route path="/login" element={<Login />}></Route>
               <Route path="/articles/*" element={<ViewArticle />}></Route>
               <Route path="/articles/add" element={<AddArticle />}></Route>
-              <Route path="/articles/edit" element={<Login />}></Route>
+              <Route path="/articles/edit/*" element={<EditArticle />}></Route>
             </Routes>
             <Footer />
           </BrowserRouter>

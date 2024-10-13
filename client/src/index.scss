@@ -211,9 +211,17 @@ article {
     text-transform: uppercase;
   }
 
+  button {
+    padding-top: $global-margin;
+  }
+
 }
 
 .new-article {
   width: 72ch;
   margin-top: $global-margin;
+}
+
+.edit-btn {
+  margin-top: 50px!important;
 }

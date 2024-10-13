@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Breadcrumb, BreadcrumbItem } from '@carbon/react';
+import { Breadcrumb, BreadcrumbItem, Button } from '@carbon/react';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import { AuthContext } from "../App";
+import { Edit } from '@carbon/icons-react';
 
 
 const ViewArticle = () => {
@@ -55,6 +56,14 @@ const ViewArticle = () => {
                     <h1>{articleData.title}</h1>
                     <p>{articleData.body}</p>
                 </article>
+
+                <Button 
+                    className='edit-btn' 
+                    renderIcon={Edit}
+                    onClick={() => {navigate('/articles/edit/' + location.state.id, location.state.id)}}
+                >
+                    Edit
+                </Button>
 
             </div>
         </div>
