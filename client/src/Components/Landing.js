@@ -24,7 +24,7 @@ const Landing = () => {
         const arr = []
         for (let i = 0; i < articleCount; i++) {
             arr.push(
-                <div key={i} onClick={() => {navigate('/articles/' + data[i].id)}}>
+                <div key={i} onClick={() => {navigate('/articles/' + data[i].id, {state:{id: data[i].id}})}}>
                     <h3>{data[i].title}</h3>
                     <p>{data[i].body}</p>
                 </div>
@@ -32,7 +32,6 @@ const Landing = () => {
         }
         return arr;
     }
-
 
     const handleSearch = () => {
         //onEnterkey

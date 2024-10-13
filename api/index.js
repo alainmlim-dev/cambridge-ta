@@ -69,6 +69,24 @@ app.get('/articles', async (req, res) => {
 
         let collection = await db.collection("articles");
         let results = await collection.find({}).limit(100).toArray()
+        res.send(results).status(200);
+
+    } catch (error) {
+        console.log(error)
+    }
+
+});
+
+app.get('/get/article', async (req, res) => {
+
+    try {
+
+        var id = req.headers.id
+        console.log(req.headers.id)
+
+        let collection = await db.collection("articles");
+        let results = await collection.findOne({ id: Number(id) })
+
         console.log(results)
 
         res.send(results).status(200);
@@ -78,6 +96,7 @@ app.get('/articles', async (req, res) => {
     }
 
 });
+
 
 
 app.listen(3012, () =>
