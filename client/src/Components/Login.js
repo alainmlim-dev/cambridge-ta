@@ -48,6 +48,7 @@ const Login = () => {
                 if (response.data.login) {
                     login()
                     setUser(usernameRef.current)
+                    localStorage.setItem("user", usernameRef.current)
                     navigate('/')
                 } else {
                     // Notif -> Unsuccessful login

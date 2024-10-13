@@ -49,6 +49,10 @@ div {
 
     nav {
       padding-bottom: $global-margin;
+
+      li span {
+        cursor: pointer;
+      }
     }
 
     h3::first-letter {
@@ -56,6 +60,10 @@ div {
     }
 
   }
+}
+
+.cds--header__nav li span {
+  cursor: pointer;
 }
 
 .header-username {
@@ -198,9 +206,13 @@ article {
     max-width: 72ch;
   }
 
-  p::first-letter,
-  .cds--link::first-letter {
+  p::first-letter {
     text-transform: uppercase;
   }
 
+}
+
+.new-article {
+  width: 72ch;
+  margin-top: $global-margin;
 }

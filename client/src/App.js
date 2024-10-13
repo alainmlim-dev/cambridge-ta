@@ -7,6 +7,7 @@ import Login from './Components/Login';
 import Footer from './Components/Footer';
 import { QueryClient, QueryClientProvider } from 'react-query'
 import ViewArticle from './Components/ViewArticle';
+import AddArticle from './Components/AddArticle';
 
 export const AuthContext = createContext();
 const queryClient = new QueryClient();
@@ -24,10 +25,12 @@ function App() {
   const logout = () => {
     setIsLoggedIn(false)
     localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem("user")
     window.location.href = "/"
   };
 
   const setUser = (u) => setUsername(u)
+
 
 
   return (
@@ -40,7 +43,7 @@ function App() {
               <Route path="/" element={<Landing />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/articles/*" element={<ViewArticle />}></Route>
-              <Route path="/articles/add" element={<Login />}></Route>
+              <Route path="/articles/add" element={<AddArticle />}></Route>
               <Route path="/articles/edit" element={<Login />}></Route>
             </Routes>
             <Footer />

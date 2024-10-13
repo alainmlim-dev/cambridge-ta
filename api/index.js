@@ -82,13 +82,8 @@ app.get('/get/article', async (req, res) => {
     try {
 
         var id = req.headers.id
-        console.log(req.headers.id)
-
         let collection = await db.collection("articles");
         let results = await collection.findOne({ id: Number(id) })
-
-        console.log(results)
-
         res.send(results).status(200);
 
     } catch (error) {
@@ -96,6 +91,37 @@ app.get('/get/article', async (req, res) => {
     }
 
 });
+
+app.post('/post/article', async (req, res) => {
+
+    try {
+
+        var title = req.body.title
+        var body = req.body.body
+        console.log(title, body)
+
+        let collection = await db.collection("articles");
+        let results = await collection.insertOne(
+            {
+                userId: 1,
+                title: req.body.title,
+                body: req.body.body
+            }
+        )
+
+        console.log(results)
+
+        setTimeout(() => {
+            res.send(results).status(200);
+        }, 1500)
+        
+
+    } catch (error) {
+        console.log(error)
+    }
+
+});
+
 
 
 

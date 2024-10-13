@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from "../App";
 import { useNavigate } from 'react-router';
 import { useQuery } from "react-query";
-import { Search, Dropdown } from '@carbon/react';
+import { Search, Dropdown, Button } from '@carbon/react';
+import {Add} from '@carbon/icons-react';
 
 
 const fetchArticles = async () => {
@@ -14,7 +15,7 @@ const fetchArticles = async () => {
 const Landing = () => {
 
     const navigate = useNavigate()
-    const { isLoggedIn } = useContext(AuthContext)
+    const { isLoggedIn, login, setUser } = useContext(AuthContext)
     const { data, status } = useQuery("articles", fetchArticles);
     const [articleCount, setArticleCount] = useState(0)
 
@@ -39,11 +40,15 @@ const Landing = () => {
 
     useEffect(() => {
 
-        if (!isLoggedIn) {
+        if (JSON.parse(localStorage.getItem("isLoggedIn"))) {
+            login()
+            setUser(localStorage.getItem("user"))
+        } else {
             navigate('/login')
         }
 
-    }, [isLoggedIn, navigate])
+    }, [isLoggedIn, navigate, login, setUser])
+
 
     useEffect(() => {
 
@@ -78,6 +83,7 @@ const Landing = () => {
                         items={items}
                         itemToString={item => item ? item : ''}
                     />
+                    
                 </div>
 
                 <hr />

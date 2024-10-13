@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Breadcrumb, BreadcrumbItem } from '@carbon/react';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
+import { AuthContext } from "../App";
 
 
 const ViewArticle = () => {
 
     let navigate = useNavigate()
     let location = useLocation()
-    const [articleData, setArticleData] = useState({title: "", body: ""})
+    const [articleData, setArticleData] = useState({ title: "", body: "" })
+    const { isLoggedIn } = useContext(AuthContext)
+
 
     useEffect(() => {
 
-        if (location.state.id !== undefined) {
-
-            console.log(location.state.id)
+        if (!isLoggedIn) {
+            navigate('/login')
+        } else {
 
             axios.get(process.env.REACT_APP_API_GETARTICLE, {
                 headers: {
@@ -27,25 +30,25 @@ const ViewArticle = () => {
                         title: response.data.title,
                         body: response.data.body
                     })
-                    
+
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
+
         }
 
-
-
-    }, [location])
+    }, [isLoggedIn, navigate, location])
 
 
     return (
+
         <div className='main'>
             <div className='content'>
 
                 <Breadcrumb>
-                    <BreadcrumbItem style={{ cursor: "pointer" }} onClick={() => navigate('/')}>Articles</BreadcrumbItem>
-                    <BreadcrumbItem href="#"><span>{articleData.title}</span></BreadcrumbItem>
+                    <BreadcrumbItem onClick={() => navigate('/')}>Articles</BreadcrumbItem>
+                    <BreadcrumbItem href="#"><span>{location.state.id}</span></BreadcrumbItem>
                 </Breadcrumb>
 
                 <article>
@@ -55,6 +58,7 @@ const ViewArticle = () => {
 
             </div>
         </div>
+
     )
 
 }
