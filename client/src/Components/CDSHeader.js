@@ -23,6 +23,7 @@ const CDSHeader = () => {
         <HeaderName href="https://www.cambridge.org" prefix="Cambridge | ">Technical Assessment</HeaderName>
 
         <HeaderNavigation aria-label="IBM [Platform]">
+          <HeaderMenuItem onClick={() => navigate('/')}>Home</HeaderMenuItem>
             <HeaderMenuItem onClick={() => navigate('/articles/add')}>New article</HeaderMenuItem>
         </HeaderNavigation>
 
