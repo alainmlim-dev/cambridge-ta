@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useRef } from 'react';
-import { Breadcrumb, BreadcrumbItem, Form, Stack, TextInput, TextArea, Button, ButtonSkeleton } from '@carbon/react';
+import { Breadcrumb, BreadcrumbItem, Form, Stack, TextInput, TextArea, Button, ButtonSkeleton, Loading } from '@carbon/react';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import { AuthContext } from "../App";
@@ -10,32 +10,36 @@ const EditArticle = () => {
 
     let navigate = useNavigate()
     let location = useLocation()
-    const { isLoggedIn, username } = useContext(AuthContext)
-    const titleRef = useRef("")
-    const bodyRef = useRef("")
+    const { isLoggedIn } = useContext(AuthContext)
     const [isPosting, setIsPosting] = useState(false)
     const [articleData, setArticleData] = useState({ title: "", body: "" })
+    const [title, setTitle] = useState("")
+    const [body, setBody] = useState("")
+    const [isLoading, setIsLoading] = useState(true)
 
 
     const handleChangeTitle = (e) => {
-        titleRef.current = e.target.value
+        setTitle(e.target.value)
     }
 
     const handleChangeBody = (e) => {
-        bodyRef.current = e.target.value
+        setBody(e.target.value)
     }
 
-    const handlePost = (e) => {
+    const handleUpdate = (e) => {
 
         e.preventDefault()
         setIsPosting(true)
 
         var data = {
-            "title": titleRef.current,
-            "body": bodyRef.current,
+            "id": location.state.id,
+            "title": title,
+            "body": body,
         }
 
-        axios.post(process.env.REACT_APP_API_POSTARTICLE, data, {
+        console.log(data)
+
+        axios.put(process.env.REACT_APP_API_UPDATEARTICLE, data, {
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json;charset=UTF-8",
@@ -44,7 +48,7 @@ const EditArticle = () => {
             .then(({ data }) => {
 
                 setIsPosting(false)
-                navigate('/')
+                navigate('/articles/' + location.state.id, {state:{id: location.state.id}})
 
             },
                 error => {
@@ -68,10 +72,9 @@ const EditArticle = () => {
             })
                 .then(function (response) {
 
-                    setArticleData({
-                        title: response.data.title,
-                        body: response.data.body
-                    })
+                    setTitle(response.data.title)
+                    setBody(response.data.body)
+                    setIsLoading(false)
 
                 })
                 .catch(function (error) {
@@ -80,11 +83,7 @@ const EditArticle = () => {
 
         }
 
-    }, [isLoggedIn, navigate])
-
-    useEffect(() => {
-        console.log(location)
-    }, [location])
+    }, [isLoggedIn, navigate, location])
 
 
 
@@ -102,40 +101,48 @@ const EditArticle = () => {
 
                 <hr />
 
-                <div className='new-article'>
-                    <Form aria-label="new-article">
-                        <Stack gap={7}>
+                {isLoading ?
+                    <Loading />
+                    :
+                    <div className='new-article'>
+                        <Form aria-label="new-article">
+                            <Stack gap={7}>
 
-                            <TextInput
-                                id="new-article-title"
-                                type="text"
-                                labelText="Title"
-                                autoFocus
-                                ref={titleRef}
-                                onChange={(e) => { handleChangeTitle(e) }}
-                            />
+                                <TextInput
+                                    id="new-article-title"
+                                    type="text"
+                                    labelText="Title"
+                                    autoFocus
+                                    value={title}
+                                    onChange={(e) => { handleChangeTitle(e) }}
+                                />
 
-                            <TextArea
-                                id="new-article-body"
-                                labelText="Body"
-                                rows={5}
-                                ref={titleRef}
-                                onChange={(e) => { handleChangeBody(e) }}
-                            />
+                                <TextArea
+                                    id="new-article-body"
+                                    labelText="Body"
+                                    rows={5}
+                                    value={body}
+                                    onChange={(e) => { handleChangeBody(e) }}
+                                />
 
-                            {isPosting ? <ButtonSkeleton></ButtonSkeleton> :
-                                <Button
-                                    renderIcon={UpdateNow}
-                                    onClick={(e) => handlePost(e)}
-                                >Update
-                                </Button>
-                            }
+                                {isPosting ?
+                                    <ButtonSkeleton></ButtonSkeleton>
+                                    :
+                                    <Button
+                                        renderIcon={UpdateNow}
+                                        onClick={(e) => handleUpdate(e)}
+                                    >Update
+                                    </Button>
+                                }
 
 
 
-                        </Stack>
-                    </Form>
-                </div>
+                            </Stack>
+                        </Form>
+                    </div>
+                }
+
+
 
 
             </div>

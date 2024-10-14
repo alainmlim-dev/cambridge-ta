@@ -126,6 +126,33 @@ app.post('/post/article', async (req, res) => {
 
 });
 
+app.put('/update/article', async (req, res) => {
+
+    try {
+
+        let collection = await db.collection("articles");
+        
+        let results = await collection.updateOne(
+            { id: Number(req.body.id) },
+            {
+                $set:
+                {
+                    "title": req.body.title,
+                    "body": req.body.body
+                }
+            }
+        )
+
+        setTimeout(() => {
+            res.send(results).status(200);
+        }, 1000)
+        
+    } catch (error) {
+        console.log(error)
+    }
+
+});
+
 
 
 
