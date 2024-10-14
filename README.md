@@ -3,13 +3,16 @@ Prepare by Alain Lim
 me@alainmlim.com
 
 ## Installation notes
-cd api
-npm i
-npm start
 
-cd client
-npm i
-npm start
+**ExpressJS API Server**
+- cd api
+- npm i
+- npm start
+
+**React UI Server**
+- cd client
+- npm i
+- npm start
 
 ## Requirements / Specifications
 
