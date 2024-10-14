@@ -4,7 +4,7 @@ Senior Frontend Developer
 Prepared by Alain Lim  
 me@alainmlim.com
 
-## Installation notes
+## Installation
 
 **ExpressJS API Server**
 - cd api
