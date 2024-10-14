@@ -17,7 +17,7 @@ me@alainmlim.com
 ## Requirements / Specifications
 
 1. A service layer that will fetch a list of articles using REST API
-- **All API calls goes through ExpressJS server (api directory -> needs to start)**
+>All API calls goes through ExpressJS server (api directory -> needs to start)
 
 2. Basic authentication using available usernames and email as passwords.
 - **Basic login authentication checks if user exists in the provided users JSON usinng username and email as the password -> https://jsonplaceholder.typicode.com/users**
