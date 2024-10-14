@@ -17,13 +17,13 @@ me@alainmlim.com
 ## Requirements / Specifications
 
 1. A service layer that will fetch a list of articles using REST API
-**All API calls goes through ExpressJS server (api directory -> needs to start)**
+- **All API calls goes through ExpressJS server (api directory -> needs to start)**
 
 2. Basic authentication using available usernames and email as passwords.
-**Basic login authentication checks if user exists in the provided users JSON usinng username and email as the password -> https://jsonplaceholder.typicode.com/users**
+- **Basic login authentication checks if user exists in the provided users JSON usinng username and email as the password -> https://jsonplaceholder.typicode.com/users**
 
 3. Routing for features of the application.
-**Using react-router, all routes were defined in App.js**
+- **Using react-router, all routes were defined in App.js**
 
 4. Other than the login page the other routes should be protected depending on if the user has logged in.
 **All routes except /login will be re-routed back to /login if isLoggedIn context state is false**
