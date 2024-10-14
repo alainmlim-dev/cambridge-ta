@@ -1,7 +1,7 @@
 # cambridge-ta App
 Cambridge Technical Assessment  
 Senior Frontend Developer  
-Prepare by Alain Lim  
+Prepared by Alain Lim  
 me@alainmlim.com
 
 ## Installation notes
