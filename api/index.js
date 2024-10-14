@@ -67,6 +67,18 @@ app.get('/articles', async (req, res) => {
 
     try {
 
+        
+        // var searchKey = req.headers.key;
+        // var searchStr = req.headers.searchstr;
+        // var searchParam = {};
+
+        // console.log(req.headers)
+
+        // if (!req.body) {
+        //     searchParam = { [searchKey]: searchStr}
+        // }
+
+
         let collection = await db.collection("articles");
         let results = await collection.find({}).sort({ id: -1}).limit(100).toArray()
 

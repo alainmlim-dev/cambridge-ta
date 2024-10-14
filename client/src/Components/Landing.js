@@ -5,20 +5,28 @@ import { useQuery } from "react-query";
 import { Search, Dropdown, Loading } from '@carbon/react';
 
 
-const fetchArticles = async () => {
-    const res = await fetch(process.env.REACT_APP_API_ARTICLES);
+const fetchArticles = async (key, searchStr) => {
+    const res = await fetch(process.env.REACT_APP_API_ARTICLES, {
+        "headers": {
+            "key": "testkey",
+            "searchstr": "teststr"
+        }
+    });
     return res.json();
 };
+
+const items = ["userId", "Id", "Title"]
 
 
 const Landing = () => {
 
     const navigate = useNavigate()
+    const [searchString, setSearchString] = useState("")
     const { isLoggedIn, login, setUser } = useContext(AuthContext)
-    const { data, status } = useQuery("articles", fetchArticles);
+    const { data, status } = useQuery("articles", fetchArticles());
     const [articleCount, setArticleCount] = useState(0)
 
-    const items = ["userId", "Id", "Title"]
+    
 
     const getArticles = (articleCount) => {
         const arr = []
@@ -35,6 +43,9 @@ const Landing = () => {
 
     const handleSearch = () => {
         //onEnterkey
+
+
+
     }
 
     useEffect(() => {

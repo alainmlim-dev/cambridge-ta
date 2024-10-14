@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Breadcrumb, BreadcrumbItem, Form, Stack, TextInput, TextArea, Button, ButtonSkeleton, Loading } from '@carbon/react';
 import { useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
@@ -12,7 +12,6 @@ const EditArticle = () => {
     let location = useLocation()
     const { isLoggedIn } = useContext(AuthContext)
     const [isPosting, setIsPosting] = useState(false)
-    const [articleData, setArticleData] = useState({ title: "", body: "" })
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [isLoading, setIsLoading] = useState(true)
@@ -36,8 +35,6 @@ const EditArticle = () => {
             "title": title,
             "body": body,
         }
-
-        console.log(data)
 
         axios.put(process.env.REACT_APP_API_UPDATEARTICLE, data, {
             headers: {
@@ -65,6 +62,7 @@ const EditArticle = () => {
             navigate('/login')
         } else {
 
+            // Fetch article data
             axios.get(process.env.REACT_APP_API_GETARTICLE, {
                 headers: {
                     "id": location.state.id
