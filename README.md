@@ -1,4 +1,6 @@
 # cambridge-ta App
+Cambridge Technical Assessment
+Senior Frontend Developer
 Prepare by Alain Lim
 me@alainmlim.com
 
@@ -41,4 +43,7 @@ me@alainmlim.com
 > Each article can be edited by clicking Edit button on each article page. This redirects to page to Edit form which initially loads the current article data and clicking the Update button will update the article.
 
 ## Added feature
+
 1. Created article database using MongoDB
+2. Added logout function
+3. Added empty validation on login page
