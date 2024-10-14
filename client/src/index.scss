@@ -135,7 +135,7 @@ footer {
   
 
   div {
-    // height: 300px;
+    max-width: 72ch;
     background-color: #f0f0f0;
     padding: $global-margin;
     transition: 0.3s;

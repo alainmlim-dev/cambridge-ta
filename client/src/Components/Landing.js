@@ -26,17 +26,13 @@ const Landing = () => {
 
     const [filter, setFilter] = useState("")
     const debouncedFilter = useDebounce(filter, 500)
-    // const { data, status, isLoading } = useQuery(
-    //     ['articles', debouncedFilter],
-    //     () => fetchArticles,
-    //     { enabled: Boolean(debouncedFilter) }
-    //   )
 
     const { isLoggedIn, login, setUser } = useContext(AuthContext)
-    const { data, status } = useQuery("articles", () => fetchArticles(debouncedFilter, currentItem));
+    const { data, status } = useQuery([debouncedFilter], 
+        () => fetchArticles(debouncedFilter, currentItem)
+    );
     const [articleCount, setArticleCount] = useState(0)
     
-
 
 
     const getArticles = (articleCount) => {
@@ -51,7 +47,7 @@ const Landing = () => {
             )
         }
         return arr;
-        
+
     }
 
     const handleSearch = (e) => {
@@ -73,17 +69,16 @@ const Landing = () => {
 
     useEffect(() => {
 
-        console.log(data)
-
         if (data !== undefined) {
             setArticleCount(data.length)
+        } else {
+            setArticleCount(0)
         }
 
     }, [data])
 
 
     return (
-
         <div className='main'>
             <div className='content'>
                 <h1>Articles</h1>
@@ -116,20 +111,20 @@ const Landing = () => {
 
                 <hr />
 
+                {status === "loading" &&  <Loading /> }
+
                 <div className='articles'>
 
                     {status === "error" && <p>Error fetching data</p>}
-                    {status === "loading" && <Loading />}
                     {status === "success" && getArticles(articleCount)}
-
+                    {articleCount === 0 && 
+                        <p>No article found</p>
+                    }
 
                 </div>
 
-
-
             </div>
         </div>
-
     )
 
 }

@@ -11,7 +11,15 @@ import AddArticle from './Components/AddArticle';
 import EditArticle from './Components/EditArticle';
 
 export const AuthContext = createContext();
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      keepPreviousData: false
+    },
+  },
+})
 
 function App() {
 

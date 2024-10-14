@@ -70,13 +70,6 @@ const Login = () => {
     }
 
 
-    // TBD ---
-    useEffect(() => {
-        usernameRef.current = "Bret";
-        passwordRef.current = "Sincere@april.biz"
-    }, [])
-
-
     return (
         <div className='main'>
             <div className='content'>
