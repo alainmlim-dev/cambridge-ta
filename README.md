@@ -7,6 +7,8 @@ me@alainmlim.com
 ## Installation
 
 **ExpressJS API Server**
+
+Using Terminal/Powershell, cd to /client folder
 ```
 cd api
 npm i
