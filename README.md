@@ -6,9 +6,10 @@ me@alainmlim.com
 
 ## Installation
 
+Using Terminal/Powershell for each, cd to /cambridge-ta folder.
+
 **ExpressJS API Server**
 
-Using Terminal/Powershell, cd to /client folder
 ```
 cd api
 npm i
