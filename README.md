@@ -22,10 +22,10 @@ me@alainmlim.com
 > All API calls goes through ExpressJS server (api directory -> needs to start)
 
 2. Basic authentication using available usernames and email as passwords.
-> Basic login authentication checks if user exists in the provided users JSON usinng username and email as the password -> https://jsonplaceholder.typicode.com/users
+> Basic login authentication checks if user exists in the provided users JSON using username and email as the password -> https://jsonplaceholder.typicode.com/users
 
 3. Routing for features of the application.
-> Using react-router, all routes were defined in App.js
+> Using react-router, all routes are defined in App.js
 
 4. Other than the login page the other routes should be protected depending on if the user has logged in.
 > All routes except /login will be re-routed back to /login if isLoggedIn context state is false
@@ -47,3 +47,4 @@ me@alainmlim.com
 1. Created article database using MongoDB
 2. Added logout function
 3. Added empty validation on login page
+4. Added login state in localStorage acting as a token to keep users logged in in refresh/revisit.
