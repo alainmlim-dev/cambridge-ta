@@ -72,15 +72,15 @@ app.get('/articles', async (req, res) => {
         // var searchStr = req.headers.searchstr;
         // var searchParam = {};
 
-        // console.log(req.headers)
-
         // if (!req.body) {
         //     searchParam = { [searchKey]: searchStr}
         // }
 
-
+        var query = req.headers.query
+        var field = (req.headers.field).toLowerCase()
+        console.log(field, ":", query)
         let collection = await db.collection("articles");
-        let results = await collection.find({}).sort({ id: -1}).limit(100).toArray()
+        let results = await collection.find({ [field]: { $regex: query, $options: "i" } }).sort({ id: -1}).limit(100).toArray()
 
         setTimeout(() => {
             res.send(results).status(200);

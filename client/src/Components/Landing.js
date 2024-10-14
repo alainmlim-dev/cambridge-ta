@@ -3,13 +3,14 @@ import { AuthContext } from "../App";
 import { useNavigate } from 'react-router';
 import { useQuery } from "react-query";
 import { Search, Dropdown, Loading } from '@carbon/react';
+import { useDebounce } from "@uidotdev/usehooks";
 
 
-const fetchArticles = async (key, searchStr) => {
+const fetchArticles = async (searchStr, searchField) => {
     const res = await fetch(process.env.REACT_APP_API_ARTICLES, {
         "headers": {
-            "key": "testkey",
-            "searchstr": "teststr"
+            "query": searchStr,
+            "field": searchField
         }
     });
     return res.json();
@@ -21,14 +22,25 @@ const items = ["userId", "Id", "Title"]
 const Landing = () => {
 
     const navigate = useNavigate()
-    const [searchString, setSearchString] = useState("")
-    const { isLoggedIn, login, setUser } = useContext(AuthContext)
-    const { data, status } = useQuery("articles", fetchArticles());
-    const [articleCount, setArticleCount] = useState(0)
+    const [currentItem, setCurrentItem] = useState(items[2]);
 
+    const [filter, setFilter] = useState("")
+    const debouncedFilter = useDebounce(filter, 500)
+    // const { data, status, isLoading } = useQuery(
+    //     ['articles', debouncedFilter],
+    //     () => fetchArticles,
+    //     { enabled: Boolean(debouncedFilter) }
+    //   )
+
+    const { isLoggedIn, login, setUser } = useContext(AuthContext)
+    const { data, status } = useQuery("articles", () => fetchArticles(debouncedFilter, currentItem));
+    const [articleCount, setArticleCount] = useState(0)
     
 
+
+
     const getArticles = (articleCount) => {
+
         const arr = []
         for (let i = 0; i < articleCount; i++) {
             arr.push(
@@ -39,14 +51,13 @@ const Landing = () => {
             )
         }
         return arr;
+        
     }
 
-    const handleSearch = () => {
-        //onEnterkey
-
-
-
+    const handleSearch = (e) => {
+        setFilter(e.target.value)
     }
+
 
     useEffect(() => {
 
@@ -61,6 +72,8 @@ const Landing = () => {
 
 
     useEffect(() => {
+
+        console.log(data)
 
         if (data !== undefined) {
             setArticleCount(data.length)
@@ -83,7 +96,10 @@ const Landing = () => {
                         labelText="Search"
                         closeButtonLabelText="Clear search input"
                         id="search-1"
-                        onKeyDown={() => { handleSearch() }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter")
+                                handleSearch(e);
+                            }}
                     />
                     <Dropdown
                         id="search-dropdown"
@@ -92,6 +108,8 @@ const Landing = () => {
                         label="Option 1"
                         items={items}
                         itemToString={item => item ? item : ''}
+                        onChange={({ selectedItem }) => setCurrentItem(selectedItem)}
+                        selectedItem={currentItem}
                     />
 
                 </div>
